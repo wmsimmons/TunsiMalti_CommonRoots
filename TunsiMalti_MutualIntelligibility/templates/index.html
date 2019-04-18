@@ -1,0 +1,43 @@
+{% from "_formhelpers.html" import render_field %}
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<title></title>
+		<script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
+		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" media="screen">
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='style.css') }}">
+	
+	</head>
+
+	<div class="page-header">
+  		<h4 id="siteheader">Tunisian & Maltese mutual intellibility database</small></h4>
+	</div>
+
+<body>
+
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			<a class="nav-link" href="/">Home</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/category">Category Search</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/root">Root search</a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" href="/docs">Documentation</a>
+		</li>
+		<form class="navbar-form navbar-left" id="searchbox" method="GET" role="search" action="/results">
+			<div class="form-group"> 
+			   	<input type="search" class="form-control" placeholder="Malti<--->Tunsi" name="searchword">
+			</div>
+			<button type="submit" class="btn btn-default">Search</button>
+		</form>
+	  </ul>
+	{% block content %}{% endblock %}
+
+</body>		
+
+</html>
