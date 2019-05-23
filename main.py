@@ -34,8 +34,41 @@ def wordDisplay(word):
 @app.route('/results', methods=['GET', 'POST'])
 def resultDisplay():
     word = request.args.get('searchword')
-    return render_template('results.html', word=word)
+    db = mongo.db.lessonfiles
+    entries = db.find({"$or": [
+     {"tunsiMeaning": { "$regex": "%s" % word}},
+     {"maltiMeaning": { "$regex": "%s" % word} },
+     {"tunsiWord": { "$regex": "%s" % word} },
+     {"maltiWord": { "$regex": "%s" % word} }
+    ]})    
+    
+    return render_template('results.html', word=word, entries=entries)
 
+@app.route('/root', methods=['GET', 'POST'])
+def rootSearch():
+    return render_template("/rootsearch.html")
+
+@app.route('/category', methods=['GET', 'POST'])
+def categorySearch():
+    return render_template("/categorySearch.html")
+
+@app.route('/category-results', methods=['GET', 'POST'])
+def display_specific_category_results():
+    word = request.args.get('searchword')
+    db = mongo.db.lessonfiles
+    categories = db.find({"$or": [
+     {"wordCategory": { "$regex": "%s" % word}}
+    ]})
+
+    return render_template('categoryresults.html', word=word, categories=categories)
+
+@app.route('/docs', methods=['GET', 'POST'])
+def documentation():
+    return render_template("/docs.html")
+
+@app.route('/commincommon', methods=['GET', 'POST'])
+def communicationInCommon():
+    return render_template("/commInCommon.html")
 
 """MUST be at end of program | CONFIG FOR HEROKU DEPLOYMENTS"""
 if __name__ == '__main__':

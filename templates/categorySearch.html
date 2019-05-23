@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<h2>Search by any word category</h2>
+
+<form>
+    <div class="dropdown">
+        <button class="dropbtn">Hover & select to search</button>
+        <div class="dropdown-content">
+            <a href="#">Agriculture</a>
+            <a href="/categoryresults/house">Household</a>
+            <a href="#">Food</a>
+            <a href="#">Religion</a>
+            <a href="#">Actions</a>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
