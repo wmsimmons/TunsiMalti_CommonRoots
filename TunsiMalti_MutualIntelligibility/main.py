@@ -31,11 +31,49 @@ def wordDisplay(word):
     entry = db.find_one({"tunsiMeaning":word}) or db.find_one({"maltiMeaning":word}) or db.find_one({"tunsiWord":word}) or db.find_one({"maltiWord":word})
     return render_template('word.html', word=word, entry=entry, result=result)
 
+"""
+"""
 @app.route('/results', methods=['GET', 'POST'])
 def resultDisplay():
     word = request.args.get('searchword')
-    return render_template('results.html', word=word)
+    db = mongo.db.lessonfiles
+    entries = db.find({"$or": [
+     {"tunsiMeaning": { "$regex": "%s" % word}},
+     {"maltiMeaning": { "$regex": "%s" % word} },
+     {"tunsiWord": { "$regex": "%s" % word} },
+     {"maltiWord": { "$regex": "%s" % word} }
+    ]})
 
+    return render_template('results.html', word=word, entries=entries)
+
+@app.route('/category', methods=['GET', 'POST'])
+def categorySearch():
+    category = request.args.get('categories')
+    db = mongo.db.lessonfiles
+    categories = db.find({}, {"wordCategory": 1, "_id": 0})
+    a = db.find({"wordCategory": category})
+
+    return render_template("/categorySearch.html", categories=categories, a=a)
+
+@app.route('/category-results/<category>', methods=['GET', 'POST'])
+def display_specific_category_results(category):
+    word = request.args.get('categories')
+    db = mongo.db.lessonfiles
+    category_word_results = db.find({"wordCategory": category})
+
+    return render_template('categoryresults.html', word=word, category_word_results=category_word_results, category=category)
+
+@app.route('/docs', methods=['GET'])
+def documentation():
+    return render_template("/docs.html")
+
+@app.route('/commincommon', methods=['GET'])
+def communicationInCommon():
+    return render_template("/commInCommon.html")
+
+@app.route('/root', methods=['GET', 'POST'])
+def rootSearch():
+    return render_template("/rootsearch.html")
 
 """MUST be at end of program"""
 if __name__ == '__main__':

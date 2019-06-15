@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    {% for word in category_word_results %}
+        <strong>Word Category:</strong>
+        <br>
+        <p>{{ word['wordCategory'] }}</p>
+        <!-- no need for a <br>, it already does that -->
+        <strong>Part of Speech:</strong>
+        <br>
+        <p>{{ word['POS'] }}</p>
+        <!-- no need for a <br>, it already does that -->
+        <strong>Word in Tunisian Arabic: </strong>
+        <br>
+        <a href="/word/{{ word['tunsiWord'] }}">{{ word['tunsiWord'] }}</a>
+        <br>
+        <br>
+        <strong>Meaning in Tunisian Arabic:</strong>
+        <br>
+        <a href="/word/{{ word['tunsiMeaning'] }}">{{ word['tunsiMeaning'] }}</a>
+        <br>
+        <br>
+        <strong>Word in Maltese: </strong>
+        <br>
+        <a href="/word/{{ word['maltiWord'] }}">{{ word['maltiWord'] }}</a>
+        <br> 
+        <br>
+        <strong>Meaning in Maltese:</strong>
+        <br>
+        <a href="/word/{{ word['maltiMeaning'] }}">{{ word['maltiMeaning'] }}</a>
+        <br>
+     ______________________________________________________________________________________________
+        <br>
+        <br>
+    <!-- end of display for each query result  -->
+    {% endfor %}
+
+{% endblock %} 

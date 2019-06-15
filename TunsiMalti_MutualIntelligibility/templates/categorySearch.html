@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<h2>Search by any word category</h2>
+
+<form method="GET">
+    <div class="dropdown">
+        <button class="dropbtn">Hover & select to search</button>
+        <div class="dropdown-content" name="categories">
+            {% for category in categories %}
+              <a href="/category-results/{{ category['wordCategory'] }}">{{ category['wordCategory'] }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</form>
+
+{% for ab in a %}
+    {{ ab['POS'] }}
+    {{ ab['tunsiWord'] }}
+    {{ ab['tunsiMeaning'] }}
+    {{ ab['maltiWord'] }}
+    {{ ab['maltiMeaning']}}
+    <br>
+{% endfor %}
+
+
+{% endblock %}
