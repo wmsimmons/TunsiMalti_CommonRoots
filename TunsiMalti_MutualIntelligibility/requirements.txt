@@ -1,0 +1,6 @@
+flask
+flask_bootstrap
+flask_pymongo
+wtforms
+flask_wtf
+nltk 
