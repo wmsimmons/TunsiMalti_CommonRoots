@@ -2,6 +2,28 @@
 
 {% block content %}
 <h3 >Results:</h3><br>
-<a href="/word/{{ word }}">{{ word }}</a>
+     <!-- each query result will display this  -->
+    {% for entry in entries %}
+        <strong>Word in Tunisian Arabic: </strong>
+        <br>
+        <a href="/word/{{ entry['tunsiWord'] }}">{{ entry['tunsiWord'] }}</a>
+        <br>
+        <h5>Meaning in Tunisian Arabic:</h5>
+        <a href="/word/{{ entry['tunsiMeaning'] }}">{{ entry['tunsiMeaning'] }}</a>
+        <br>
+        <strong>Word in Maltese: </strong>
+        <br>
+        <a href="/word/{{ entry['maltiWord'] }}">{{ entry['maltiWord'] }}</a>
+        <br> 
+        <h5>Meaning in Maltese:</h5>
+        <a href="/word/{{ entry['maltiMeaning'] }}">{{ entry['maltiMeaning'] }}</a>
+        <br>
+     ______________________________________________________________________________________________
+     <br>
+     <br>
+    <!-- end of display for each query result  -->
+    {% endfor %}
+
+<!-- end of access to all the words matching the query -->
 
 {% endblock %}
