@@ -75,6 +75,52 @@ def communicationInCommon():
 def rootSearch():
     return render_template("/rootsearch.html")
 
+"""         API SECTION      """
+# displays a rest api page that displays all db words
+@app.route('/allwords', methods=['GET'])
+def get_all_words():
+    all_words = mongo.db.lessonfiles
+
+    output = []
+
+    if all_words.find():
+        for query in all_words.find():
+            output.append({"tunsiMeaning": query['tunsiMeaning'],
+                        "maltiMeaning": query['maltiMeaning'],
+                        "tunsiWord": query['tunsiWord'],
+                        "maltiWord": query['maltiWord']})
+    else:
+        output = 'No results found.'
+
+    return jsonify({'result': output})
+
+# displays a rest api page that displays words by specific categories
+@app.route('/allwordsbycat/<category>', methods=['GET'])
+def get_all_words_by_category(category):
+    all_words = mongo.db.lessonfiles
+    query_for_category = all_words.find({"wordCategory": category})
+
+    output = []
+
+    if query_for_category:
+        for query in query_for_category:
+            output.append({"tunsiMeaning": query['tunsiMeaning'],
+                        "maltiMeaning": query['maltiMeaning'],
+                        "tunsiWord": query['tunsiWord'],
+                        "maltiWord": query['maltiWord'],
+                        "wordCategory": query['wordCategory']})
+    else:
+        output = 'No results found.'
+
+    return jsonify({'result': output})
+
+# as a user, i'd like to filter results on api page for categories
+# as a user, id like to edit (put) any attribute or delete any entry
+# as a user, id like to add some entry
+
+"""   END OF API SECTION     """
+
+
 """MUST be at end of program | CONFIG FOR HEROKU DEPLOYMENTS"""
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
