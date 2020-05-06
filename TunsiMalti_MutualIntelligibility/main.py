@@ -3,7 +3,7 @@
 
 from flask import Flask, flash
 from flask_bootstrap import Bootstrap
-from flask import render_template, request, url_for
+from flask import render_template, request, url_for, jsonify
 from flask_pymongo import PyMongo
 import os
 
