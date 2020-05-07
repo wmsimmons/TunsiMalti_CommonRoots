@@ -85,7 +85,9 @@ def get_all_words():
 
     if all_words.find():
         for query in all_words.find():
-            output.append({"tunsiMeaning": query['tunsiMeaning'],
+            str_id = str(query['_id'])
+            output.append({"_id": str_id,
+                        "tunsiMeaning": query['tunsiMeaning'],
                         "maltiMeaning": query['maltiMeaning'],
                         "tunsiWord": query['tunsiWord'],
                         "maltiWord": query['maltiWord']})
