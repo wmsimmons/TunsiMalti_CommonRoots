@@ -80,19 +80,15 @@ def rootSearch():
 @app.route('/allwords', methods=['GET'])
 def get_all_words():
     all_words = mongo.db.lessonfiles
-
     output = []
-
-    if all_words.find():
-        for query in all_words.find():
-            str_id = str(query['_id'])
-            output.append({"_id": str_id,
-                        "tunsiMeaning": query['tunsiMeaning'],
-                        "maltiMeaning": query['maltiMeaning'],
-                        "tunsiWord": query['tunsiWord'],
-                        "maltiWord": query['maltiWord']})
-    else:
-        output = 'No results found.'
+    
+    for query in all_words.find({"lemmaId":""}):
+        str_id = str(query['_id'])
+        output.append({"_id": str_id,
+                    "tunsiMeaning": query['tunsiMeaning'],
+                    "maltiMeaning": query['maltiMeaning'],
+                    "tunsiWord": query['tunsiWord'],
+                    "maltiWord": query['maltiWord']})
 
     return jsonify({'result': output})
 
